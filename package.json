@@ -1,12 +1,19 @@
 {
   "name": "math_exercise_machine",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-mocha test/*.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.3.0",
+    "mocha": "^10.7.3",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.5.4"
+  }
 }
