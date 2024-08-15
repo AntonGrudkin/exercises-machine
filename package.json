@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-mocha test/*.test.ts"
+    "test": "ts-mocha test/*.test.ts",
+    "lint": "npx eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/mathjs": "^9.4.1",
     "@types/mocha": "^10.0.7",
     "@types/node": "^22.3.0",
+    "eslint": "^9.9.0",
     "mocha": "^10.7.3",
     "ts-mocha": "^10.0.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.1.0"
   },
   "dependencies": {
     "mathjs": "^13.0.3",

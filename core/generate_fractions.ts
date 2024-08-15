@@ -1,20 +1,21 @@
-import Prando from 'prando'
-import {MathNode, parse, OperatorNode, ConstantNode} from 'mathjs'
+import type Prando from 'prando'
+import type {MathNode} from 'mathjs'
+import * as math from 'mathjs'
 
 /*
 equals_to = a/b + c/d
 equals_to = a/b - c/d
  */
-export function generate_simple_fraction_sum(prando: Prando, equals_to: number): MathNode {
-    let a = prando.nextInt(-25, 25)
-    let b = prando.nextInt(-25, 25)
-    let c = prando.nextInt(-25, 25)
-    let d = prando.nextInt(-25, 25)
+export function generateSimpleFractionSum(prando: Prando, equalsTo: number): MathNode {
+    const a = prando.nextInt(-25, 25);
+    const b = prando.nextInt(-25, 25);
+    const c = prando.nextInt(-25, 25);
+    const d = prando.nextInt(-25, 25);
 
-    let expr = parse(`${a} / ${b} + ${c} / ${d}`)
-    let result = expr.evaluate()
+    const expr = math.parse(`${a} / ${b} + ${c} / ${d}`);
+    const result = expr.evaluate();
 
-    let correction = equals_to - result
-    let corrected_expr = new OperatorNode('+', 'add', [expr, new ConstantNode(correction)])
-    return corrected_expr
+    const correction = equalsTo - result;
+    const correctedExpr = new math.OperatorNode('+', 'add', [expr, new math.ConstantNode(correction)]);
+    return correctedExpr
 }
