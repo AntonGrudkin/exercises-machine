@@ -1,21 +1,49 @@
-import type Prando from 'prando'
 import type {MathNode} from 'mathjs'
 import * as math from 'mathjs'
+import type Prando from 'prando'
 
 /*
-equals_to = a/b + c/d
-equals_to = a/b - c/d
+equalsTo = a/b + c/d
+
+Algorithm:
+where d < a and d, a > 0
+C in [-1, 0, 1]
+
+equalsTo = (k - C + a/d * n/n) + ((equalsTo - k) + (C - a/d) * m/m)
+equalsTo = (k * d - C * d + a) * n / d * n + (equalsTo * d - k * d + C * d - a) * m / d * m
+(k * d - C * d + a) * n / d / n + (equalsTo * d - k * d + C * d - a) * m / d / m
  */
 export function generateSimpleFractionSum(prando: Prando, equalsTo: number): MathNode {
-    const a = prando.nextInt(-25, 25);
-    const b = prando.nextInt(-25, 25);
-    const c = prando.nextInt(-25, 25);
-    const d = prando.nextInt(-25, 25);
+    const a = prando.nextInt(1, 25);
+    const d = a + prando.nextInt(1, 25);
+    const n = prando.nextInt(1, 9);
+    const m = prando.nextInt(1, 9);
+    const k = prando.nextInt(1, equalsTo - 1);
+    const C = prando.nextInt(-1, 1);
 
-    const expr = math.parse(`${a} / ${b} + ${c} / ${d}`);
-    const result = expr.evaluate();
+    const expr = math.parse(`${(k * d - C * d + a) * n} / ${d * n} + ${(equalsTo * d - k * d + C * d - a) * m} / ${d * m}`);
+    return expr
+}
 
-    const correction = equalsTo - result;
-    const correctedExpr = new math.OperatorNode('+', 'add', [expr, new math.ConstantNode(correction)]);
-    return correctedExpr
+/*
+equalsTo = a/b - c/d
+
+Algorithm:
+where d < a and d, a > 0
+C in [-1, 0, 1]
+
+equalsTo = (k + equalsTo + C + a/d * n/n) - (k  + (C + a/d) * m/m)
+equalsTo = ((k * d + equalsTo * d + C * d + a) * n / d * n  - (k * d  + C * d + a) * m / d * m
+((k * d + X * d + C * d + a) * n / d / n  - (k * d  + C * d + a) * m / d / m
+ */
+export function generateSimpleFractionSub(prando: Prando, equalsTo: number): MathNode {
+    const a = prando.nextInt(1, 25);
+    const d = a + prando.nextInt(1, 25);
+    const n = prando.nextInt(1, 9);
+    const m = prando.nextInt(1, 9);
+    const k = prando.nextInt(1, equalsTo - 1);
+    const C = prando.nextInt(-1, 1);
+
+    const expr = math.parse(`${(k * d + equalsTo * d + C * d + a) * n} / ${d * n} - ${(k * d + C * d + a) * m} / ${d * m}`);
+    return expr
 }
