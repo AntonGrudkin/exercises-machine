@@ -2,8 +2,8 @@ import assert from 'assert'
 import type {MathNode} from "mathjs";
 import {suite, test} from 'mocha'
 import Prando from 'prando'
-import * as generateFraction from '../core/generate_fractions'
-import {repeat} from './test_utils'
+import * as generateFraction from '../../core/generate/generate_fractions'
+import {repeat} from '../test_utils'
 
 function assertExpressionAnswer(expr: MathNode, answer: number) {
     const epsilon = 0.001
