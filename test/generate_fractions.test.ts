@@ -14,15 +14,7 @@ function assertExpressionAnswer(expr: MathNode, answer: number) {
 }
 
 suite('generateSimpleFractionSum', () => {
-    const prando = new Prando("a testing seed");
-
-    test('print out 10 examples', () => {
-        const answers = Array(10).fill(0).map(() => prando.nextInt(-20, 20))
-        const examples = answers.map(answer => generateFraction.generateSimpleFractionSum(prando, answer))
-        examples.forEach((ex, i) => {
-            console.log(`${answers[i]} = \t ${ex.toString()} \t=\t ${ex.toTex()}`);
-        })
-    })
+    const prando = new Prando("testing seed");
 
     test('for a positive answer expression is correct', () => {
         const answer = prando.nextInt(5, 50);
@@ -48,10 +40,18 @@ suite('generateSimpleFractionSum', () => {
         assertExpressionAnswer(expr, answer);
     });
 
-    test('expression has form a/d + b/c, repeat x10', repeat(10, () => {
-        const answer = prando.nextInt(5, 50);
+    test('for positive answers, expression has form a/d + b/c, repeat x10', repeat(10, () => {
+        const answer = prando.nextInt(0, 50);
         const expr = generateFraction.generateSimpleFractionSum(prando, answer);
-        assert.match(expr.toString(), /(\d+) \/ (\d+) + (\d+) \/ (\d+)/)
+        assert.match(expr.toString(), /^(\d+) \/ (\d+) \+ (\d+) \/ (\d+)$/)
+        console.log(`OK ${expr.toString()}`)
+    }));
+
+    test.skip('for negative answers, expression has form a/d + b/c, repeat x10', repeat(10, () => {
+        const answer = prando.nextInt(-50, 0);
+        const expr = generateFraction.generateSimpleFractionSum(prando, answer);
+        assert.match(expr.toString(), /^-(\d+) \/ (\d+) \+ (\d+) \/ (\d+)$/)
+        console.log(`OK ${expr.toString()}`)
     }));
 });
 
@@ -59,14 +59,6 @@ suite('generateSimpleFractionSum', () => {
 suite('generateSimpleFractionSub', () => {
     const prando = new Prando("a testing seed");
 
-    test('print out 10 examples', () => {
-        const answers = Array(10).fill(0).map(() => prando.nextInt(-20, 20))
-        const examples = answers.map(answer => generateFraction.generateSimpleFractionSub(prando, answer))
-        examples.forEach((ex, i) => {
-            console.log(`${answers[i]} = \t ${ex.toString()} \t=\t ${ex.toTex()}`);
-        })
-    })
-
     test('for a positive answer expression is correct', () => {
         const answer = prando.nextInt(5, 50);
         const expr = generateFraction.generateSimpleFractionSub(prando, answer);
@@ -91,10 +83,18 @@ suite('generateSimpleFractionSub', () => {
         assertExpressionAnswer(expr, answer);
     });
 
-    test('expression has form a/d - b/c, repeat x10', repeat(10, () => {
-        const answer = prando.nextInt(5, 50);
+    test('for positive answers, expression has form a/d - b/c, repeat x10', repeat(10, () => {
+        const answer = prando.nextInt(0, 50);
         const expr = generateFraction.generateSimpleFractionSub(prando, answer);
-        assert.match(expr.toString(), /(\d+) \/ (\d+) - (\d+) \/ (\d+)/)
+        assert.match(expr.toString(), /^(\d+) \/ (\d+) - (\d+) \/ (\d+)$/)
+        console.log(`OK ${expr.toString()}`)
+    }));
+
+    test('for negative answers, expression has form a/d - b/c, repeat x10', repeat(10, () => {
+        const answer = prando.nextInt(-50, 0);
+        const expr = generateFraction.generateSimpleFractionSub(prando, answer);
+        assert.match(expr.toString(), /^(\d+) \/ (\d+) - (\d+) \/ (\d+)$/)
+        console.log(`OK ${expr.toString()}`)
     }));
 });
 
