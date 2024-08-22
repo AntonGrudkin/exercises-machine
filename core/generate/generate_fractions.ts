@@ -1,6 +1,7 @@
 import type {MathNode} from 'mathjs'
 import * as math from 'mathjs'
 import type Prando from 'prando'
+import {normalize} from "../normalize/unary_minus";
 
 /*
 equalsTo = a/b + c/d
@@ -22,7 +23,7 @@ export function generateSimpleFractionSum(prando: Prando, equalsTo: number): Mat
     const C = prando.nextInt(-1, 1);
 
     const expr = math.parse(`${(k * d - C * d + a) * n} / ${d * n} + ${(equalsTo * d - k * d + C * d - a) * m} / ${d * m}`);
-    return expr
+    return normalize.fullUnaryMinus(expr)
 }
 
 /*
@@ -45,5 +46,5 @@ export function generateSimpleFractionSub(prando: Prando, equalsTo: number): Mat
     const C = prando.nextInt(-1, 1);
 
     const expr = math.parse(`${(k * d + equalsTo * d + C * d + a) * n} / ${d * n} - ${(k * d + C * d + a) * m} / ${d * m}`);
-    return expr
+    return normalize.fullUnaryMinus(expr)
 }

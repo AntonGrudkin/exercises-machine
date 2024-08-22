@@ -2,8 +2,8 @@ import assert from 'assert'
 import type {MathNode} from "mathjs";
 import {suite, test} from 'mocha'
 import Prando from 'prando'
-import * as generateFraction from '../../core/generate/generate_fractions'
-import {repeat} from '../test_utils'
+import * as generateFraction from '../../../core/generate/generate_fractions'
+import {repeat} from '../../test_utils'
 
 function assertExpressionAnswer(expr: MathNode, answer: number) {
     const epsilon = 0.001
@@ -44,13 +44,6 @@ suite('generateSimpleFractionSum', () => {
         const answer = prando.nextInt(0, 50);
         const expr = generateFraction.generateSimpleFractionSum(prando, answer);
         assert.match(expr.toString(), /^(\d+) \/ (\d+) \+ (\d+) \/ (\d+)$/)
-        console.log(`OK ${expr.toString()}`)
-    }));
-
-    test.skip('for negative answers, expression has form a/d + b/c, repeat x10', repeat(10, () => {
-        const answer = prando.nextInt(-50, 0);
-        const expr = generateFraction.generateSimpleFractionSum(prando, answer);
-        assert.match(expr.toString(), /^-(\d+) \/ (\d+) \+ (\d+) \/ (\d+)$/)
         console.log(`OK ${expr.toString()}`)
     }));
 });
