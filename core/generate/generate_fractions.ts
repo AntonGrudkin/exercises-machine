@@ -1,5 +1,4 @@
-import type {MathNode} from 'mathjs'
-import * as math from 'mathjs'
+import {ConstantNode, MathNode, OperatorNode} from 'mathjs'
 import type Prando from 'prando'
 import {normalize} from "../normalize/unary_minus";
 
@@ -22,7 +21,15 @@ export function generateSimpleFractionSum(prando: Prando, equalsTo: number): Mat
     const k = prando.nextInt(1, equalsTo - 1);
     const C = prando.nextInt(-1, 1);
 
-    const expr = math.parse(`${(k * d - C * d + a) * n} / ${d * n} + ${(equalsTo * d - k * d + C * d - a) * m} / ${d * m}`);
+    const exp1 = new ConstantNode((k * d - C * d + a) * n);
+    const exp2 = new ConstantNode(d * n);
+    const exp3 = new ConstantNode((equalsTo * d - k * d + C * d - a) * m);
+    const exp4 = new ConstantNode(d * m)
+
+    const expr = new OperatorNode('+', 'add', [
+        new OperatorNode('/', 'divide', [exp1, exp2]),
+        new OperatorNode('/', 'divide', [exp3, exp4])])
+
     return normalize.fullUnaryMinus(expr)
 }
 
@@ -45,6 +52,14 @@ export function generateSimpleFractionSub(prando: Prando, equalsTo: number): Mat
     const k = prando.nextInt(1, equalsTo - 1);
     const C = prando.nextInt(-1, 1);
 
-    const expr = math.parse(`${(k * d + equalsTo * d + C * d + a) * n} / ${d * n} - ${(k * d + C * d + a) * m} / ${d * m}`);
+    const exp1 = new ConstantNode((k * d + equalsTo * d + C * d + a) * n);
+    const exp2 = new ConstantNode(d * n);
+    const exp3 = new ConstantNode((k * d + C * d + a) * m);
+    const exp4 = new ConstantNode(d * m)
+
+    const expr = new OperatorNode('-', 'subtract', [
+        new OperatorNode('/', 'divide', [exp1, exp2]),
+        new OperatorNode('/', 'divide', [exp3, exp4])])
+
     return normalize.fullUnaryMinus(expr)
 }
