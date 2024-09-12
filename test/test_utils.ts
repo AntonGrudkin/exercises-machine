@@ -1,3 +1,5 @@
+import * as math from "mathjs";
+import {MathNode} from "mathjs";
 import type {Context, Done, Func, Test} from "mocha";
 import {test} from "mocha";
 
@@ -17,5 +19,24 @@ export function repeat(times: number, fn: Func): Func {
         }
         done()
     }
+}
+
+export function nodeParentId(node: MathNode, parent: MathNode | null): string {
+    function nodeStr(node: MathNode | null): string {
+        switch (true) {
+            case node === null:
+                return "?"
+            case node instanceof math.ConstantNode:
+                return node.value;
+            case node instanceof math.OperatorNode:
+                return node.op;
+            case node instanceof math.ParenthesisNode:
+                return "()"
+            default:
+                return node.type;
+        }
+    }
+
+    return `${nodeStr(parent)} -> ${nodeStr(node)}`
 }
 
