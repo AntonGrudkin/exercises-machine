@@ -8,15 +8,14 @@ export function myTraverse(tree: MathNode, callback: (node: MathNode, path: stri
     callback(tree, "$", null);
 
     // recursively traverse over all children of a node
-    // @ts-ignore
-    function _traverse(node: MathNode, path: string, callback) {
+    function _traverse(node: MathNode, path: string) {
         node.forEach(function (child, childPath, parent) {
             callback(child, `${path}.${childPath}`, parent);
-            _traverse(child, `${path}.${childPath}`, callback);
+            _traverse(child, `${path}.${childPath}`);
         });
     }
 
-    _traverse(tree, "$", callback);
+    _traverse(tree, "$");
 }
 
 export function myTransform(tree: MathNode, callback: (node: MathNode, path: string, parent: MathNode | null) => MathNode) {

@@ -21,8 +21,8 @@ export function generateFractionExercise(prando: Prando, complexityBudget: numbe
     const complicators = allComplicators(prando)
     while (complexity > 0) {
         const complicator = prando.nextArrayItem(complicators)
-        let leafs: { node: MathNode, path: string }[] = []
-        myTraverse(tree, (node, path, parent) => {
+        const leafs: { node: MathNode, path: string }[] = []
+        myTraverse(tree, (node, path) => {
             if (node.type == "ConstantNode") leafs.push({node, path})
         })
 

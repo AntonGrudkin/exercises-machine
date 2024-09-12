@@ -12,15 +12,13 @@ export class Transformation {
     }
 
     transform(tree: MathNode): MathNode {
-        const result = myTransform(tree, (node, path, parent) => {
+        const result = myTransform(tree, (node, path) => {
             if (path === this.targetPath) {
-                // console.log(`Replace ${node} with ${this.replaceWith}`)
                 return this.replaceWith;
             } else {
                 return node;
             }
         })
-        // console.log(`Transform ${tree.toString()} -> ${result.toString()} with ${this.targetPath} to ${this.replaceWith.toString()}`)
         return result
     }
 

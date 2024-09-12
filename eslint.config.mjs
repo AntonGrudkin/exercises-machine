@@ -12,8 +12,9 @@ export default tseslint.config({
         ...tseslint.configs.stylistic,
     ],
     rules: {
-        '@typescript-eslint/array-type': 'error',
-        '@typescript-eslint/consistent-type-imports': 'error',
-        "@typescript-eslint/naming-convention": "error",
+        "@typescript-eslint/array-type": 'error',
+        "@typescript-eslint/consistent-type-imports": 'off',
+        "@typescript-eslint/naming-convention": 'error',
+        "@typescript-eslint/no-unused-vars": 'warn',
     },
 });
