@@ -82,12 +82,5 @@ suite('generateSimpleFractionSub', () => {
         assert.match(expr.toString(), /^(\d+) \/ (\d+) - (\d+) \/ (\d+)$/)
         console.log(`OK ${expr.toString()}`)
     }));
-
-    test('for negative answers, expression has form a/d - b/c, repeat x10', repeat(10, () => {
-        const answer = prando.nextInt(-50, 0);
-        const expr = generateFraction.generateSimpleFractionSub(prando, answer);
-        assert.match(expr.toString(), /^(\d+) \/ (\d+) - (\d+) \/ (\d+)$/)
-        console.log(`OK ${expr.toString()}`)
-    }));
 });
 

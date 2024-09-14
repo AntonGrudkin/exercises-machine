@@ -5,10 +5,10 @@ import {normalize} from "../normalize/unary_minus";
 
 
 export class Transformation {
-    constructor(readonly targetPath: string,
-                readonly replaceWith: MathNode,
+    constructor(private targetPath: string,
+                private replaceWith: MathNode,
                 readonly complexity: number,
-                readonly children: ConstantNode[]) {
+                private children: ConstantNode[]) {
     }
 
     transform(tree: MathNode): MathNode {
@@ -118,6 +118,17 @@ export class FractionSubComp extends Complicator {
     override childNum = 4;
     override complexity = 6;
 
+    /*
+    equalsTo = a/b - c/d
+
+    Algorithm:
+    where d < a and d, a > 0
+    C in [-1, 0, 1]
+
+    equalsTo = (k + equalsTo + C + a/d * n/n) - (k  + (C + a/d) * m/m)
+    equalsTo = ((k * d + equalsTo * d + C * d + a) * n / d * n  - (k * d  + C * d + a) * m / d * m
+    ((k * d + X * d + C * d + a) * n / d / n  - (k * d  + C * d + a) * m / d / m
+     */
     override generateTransformation(node: ConstantNode, path: string): Transformation {
         const equalsTo = node.value
         const a = this.prando.nextInt(1, 25);
