@@ -1,7 +1,7 @@
 import {ConstantNode, MathNode} from "mathjs";
 import Prando from "prando";
 import {myTraverse} from "../mathnode_util";
-import {allComplicators, FractionSubComp, Transformation} from "./complicator";
+import {allComplicators, FractionSubComplicator, Transformation} from "./complicator";
 
 export class MathExercise {
     constructor(readonly answer: number, readonly exercise: MathNode) {
@@ -15,7 +15,7 @@ export function generateFractionExercise(prando: Prando, complexityBudget: numbe
     let queue: ConstantNode[] = []
     let complexity = complexityBudget
 
-    let trans: Transformation = (new FractionSubComp(prando)).generateTransformation(tree as ConstantNode, "$");
+    let trans: Transformation = (new FractionSubComplicator(prando)).generateTransformation(tree as ConstantNode, "$");
     ({tree, queue, complexity} = trans.transformTriple(tree, queue, complexity))
 
     const complicators = allComplicators(prando)
